@@ -1,16 +1,16 @@
-using AnalyzeIGRAv2
+using ParseIGRAv2
 using Documenter
 
-DocMeta.setdocmeta!(AnalyzeIGRAv2, :DocTestSetup, :(using AnalyzeIGRAv2); recursive=true)
+DocMeta.setdocmeta!(ParseIGRAv2, :DocTestSetup, :(using ParseIGRAv2); recursive=true)
 
 makedocs(;
-    modules=[AnalyzeIGRAv2],
+    modules=[ParseIGRAv2],
     authors="Nathanael Wong <natgeo.wong@outlook.com>",
-    repo="https://github.com/natgeo-wong/AnalyzeIGRAv2.jl/blob/{commit}{path}#{line}",
-    sitename="AnalyzeIGRAv2.jl",
+    repo="https://github.com/natgeo-wong/ParseIGRAv2.jl/blob/{commit}{path}#{line}",
+    sitename="ParseIGRAv2.jl",
     format=Documenter.HTML(;
         prettyurls=get(ENV, "CI", "false") == "true",
-        canonical="https://natgeo-wong.github.io/AnalyzeIGRAv2.jl",
+        canonical="https://natgeo-wong.github.io/ParseIGRAv2.jl",
         edit_link="main",
         assets=String[],
     ),
@@ -20,6 +20,6 @@ makedocs(;
 )
 
 deploydocs(;
-    repo="github.com/natgeo-wong/AnalyzeIGRAv2.jl",
+    repo="github.com/natgeo-wong/ParseIGRAv2.jl",
     devbranch="main",
 )

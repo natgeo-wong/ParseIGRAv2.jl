@@ -1,4 +1,4 @@
-name = "AnalyzeIGRAv2"
+name = "ParseIGRAv2"
 uuid = "7059b104-e8a9-4ebe-9710-95a166408db5"
 authors = ["Nathanael Wong <natgeo.wong@outlook.com>"]
 version = "0.1.0"
