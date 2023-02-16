@@ -3,6 +3,7 @@ module ParseIGRAv2
 ## Base Modules Used
 using DelimitedFiles
 using Logging
+using PrettyTables
 using Printf
 using Statistics
 
@@ -13,14 +14,18 @@ using NCDatasets
 using Reexport
 @reexport using Dates
 
-import Base: download
+import Base: show, download
 
 ## Exporting the following functions:
 export
-        something
+        station, stationlist, stationinfodata, stationinfotable,
+        isIGRAv2station
 
 ## TmPi.jl logging preface
 
 modulelog() = "$(now()) - ParseIGRAv2.jl"
+
+include("stations.jl")
+include("downloads.jl")
 
 end
