@@ -24,7 +24,9 @@ export
 
         profile_pressure, profile_temperature, profile_vapourpressure,
 
-        download, extract, read, show
+        download, extract, read, show,
+
+        IGRAv2Station, IGRAv2Data
 
 ## TmPi.jl logging preface
 
