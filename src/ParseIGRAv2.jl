@@ -22,6 +22,8 @@ export
         station, stationlist, stationinfodata, stationinfotable,
         isIGRAv2station,
 
+        profile_pressure, profile_temperature, profile_vapourpressure,
+
         download, extract, read, show
 
 ## TmPi.jl logging preface
@@ -31,5 +33,6 @@ modulelog() = "$(now()) - ParseIGRAv2.jl"
 include("stations.jl")
 include("download.jl")
 include("read.jl")
+include("profiles.jl")
 
 end
