@@ -1,13 +1,11 @@
 function profile_temperature(
-    station :: IGRAv2Data;
-    path    :: AbstractString = homedir(),
-    derived :: Bool = false
+    station :: IGRAv2Data
 )
 
-    if derived
-        fID = joinpath(path,"IGRAv2","derived","$(station.ID).txt")
+    if station.derived
+        fID = joinpath(station.path,"IGRAv2","derived","$(station.ID).txt")
     else
-        fID = joinpath(path,"IGRAv2","raw","$(station.ID).txt")
+        fID = joinpath(station.path,"IGRAv2","raw","$(station.ID).txt")
     end
 
     nlvls = maximum(station.nlevels)
@@ -23,6 +21,9 @@ function profile_temperature(
         itair = @view tair[1:station.nlevels[itime],itime]
         for ilvl = 1 : station.nlevels[itime]
             itair[ilvl] = parse(Int,data[ibeg+ilvl-1][25:31]) / 10
+            if itair[ilvl] == -9999.9
+                itair[ilvl] = NaN
+            end
         end
     end
     close(fio)
@@ -32,15 +33,13 @@ function profile_temperature(
 end
 
 function profile_pressure(
-    station :: IGRAv2Data;
-    path    :: AbstractString = homedir(),
-    derived :: Bool = false
+    station :: IGRAv2Data
 )
 
-    if derived
-        fID = joinpath(path,"IGRAv2","derived","$(station.ID).txt")
+    if station.derived
+        fID = joinpath(station.path,"IGRAv2","derived","$(station.ID).txt")
     else
-        fID = joinpath(path,"IGRAv2","raw","$(station.ID).txt")
+        fID = joinpath(station.path,"IGRAv2","raw","$(station.ID).txt")
     end
 
     nlvls = maximum(station.nlevels)
@@ -56,6 +55,9 @@ function profile_pressure(
         ipres = @view pres[1:station.nlevels[itime],itime]
         for ilvl = 1 : station.nlevels[itime]
             ipres[ilvl] = parse(Int,data[ibeg+ilvl-1][1:7])
+            if ipres[ilvl] == -99999
+                ipres[ilvl] = NaN
+            end
         end
     end
     close(fio)
@@ -65,15 +67,13 @@ function profile_pressure(
 end
 
 function profile_vapourpressure(
-    station :: IGRAv2Data;
-    path    :: AbstractString = homedir(),
-    derived :: Bool = false
+    station :: IGRAv2Data
 )
 
-    if derived
-        fID = joinpath(path,"IGRAv2","derived","$(station.ID).txt")
+    if station.derived
+        fID = joinpath(station.path,"IGRAv2","derived","$(station.ID).txt")
     else
-        fID = joinpath(path,"IGRAv2","raw","$(station.ID).txt")
+        fID = joinpath(station.path,"IGRAv2","raw","$(station.ID).txt")
     end
 
     nlvls = maximum(station.nlevels)
@@ -89,6 +89,9 @@ function profile_vapourpressure(
         ivap = @view vappres[1:station.nlevels[itime],itime]
         for ilvl = 1 : station.nlevels[itime]
             ivap[ilvl] = parse(Int,data[ibeg+ilvl-1][73:79])
+            if ivap[ilvl] == -99999
+                ivap[ilvl] = NaN
+            end
         end
     end
     close(fio)

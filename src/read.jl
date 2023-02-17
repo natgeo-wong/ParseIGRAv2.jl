@@ -1,6 +1,8 @@
 struct IGRAv2Data{ST<:AbstractString,FT<:Real}
          ID :: ST
        name :: ST
+       path :: ST
+    derived :: Bool
         lon :: FT
         lat :: FT
           z :: FT
@@ -61,7 +63,8 @@ function read(
     close(fio)
 
     igra = IGRAv2Data{ST,FT}(
-        station.ID, station.name, station.lon, station.lat, station.z,
+        station.ID, station.name, path, derived,
+        station.lon, station.lat, station.z,
         zeros(Int,nobs), zeros(DateTime,nobs), zeros(Int,nobs), zeros(Int,nobs)
     )
 
