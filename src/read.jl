@@ -27,7 +27,8 @@ function extract(
 
     zip = ZipFile.Reader(zID)
     zIO = zip.files[1]
-    txt = read(zIO,String)
+    txt = ZipFile.read(zIO,String)
+    close(zip)
 
     @info "$(modulelog()) - Extracting radiosonde data for $(station.ID) from $zID to $fID ..."
 

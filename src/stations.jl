@@ -32,7 +32,7 @@ stationinfotable() = pretty_table(
 
 stationlist() = stationinfodata()[:,1]
 
-function isIGRAv2station(stn :: String)
+function isIGRAv2station(stn :: AbstractString)
 
     if !iszero(sum(stationlist() .== stn))
           return true
@@ -41,7 +41,7 @@ function isIGRAv2station(stn :: String)
 
 end
 
-station(ID :: String, FT = Float64, ST = String) = if isIGRAv2station(ID)
+station(ID :: AbstractString, FT = Float64, ST = String) = if isIGRAv2station(ID)
     data = stationinfodata(findfirst(stationlist().==ID))
     name = data[2]
     while name[end] == ' '
