@@ -4,6 +4,7 @@ struct IGRAv2Data{ST<:AbstractString,FT<:Real}
         lon :: FT
         lat :: FT
           z :: FT
+       line :: Vector{Int}
       dates :: Vector{DateTime}
     nlevels :: Vector{Int}
         pwv :: Vector{Int}
@@ -58,22 +59,23 @@ function read(
 
     igra = IGRAv2Data{ST,FT}(
         station.ID, station.name, station.lon, station.lat, station.z,
-        zeros(DateTime,nobs), zeros(Int,nobs), zeros(Int,nobs)
+        zeros(Int,nobs), zeros(DateTime,nobs), zeros(Int,nobs), zeros(Int,nobs)
     )
 
     fio = open(fID)
     ii = 0
+    iline = 0
     for line in eachline(fio)
+        iline += 1
         if line[1] == '#'
             ii += 1
             igra.dates[ii] = DateTime(
-                parse(Int,line[14:17]),
-                parse(Int,line[19:20]),
-                parse(Int,line[22:23]),
-                parse(Int,line[25:26])
+                parse(Int,line[14:17]), parse(Int,line[19:20]),
+                parse(Int,line[22:23]), parse(Int,line[25:26])
             )
             igra.nlevels[ii] = parse(Int,line[32:36])
             igra.pwv[ii] = parse(Int,line[38:43])
+            igra.line[ii] = iline
         end
     end
     close(fio)
