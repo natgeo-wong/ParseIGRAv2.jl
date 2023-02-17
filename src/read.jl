@@ -83,3 +83,16 @@ function read(
     return igra
 
 end
+
+function show(io::IO, stn::IGRAv2Data)
+    print(
+		io,
+		"The IGRAv2 Station \"$(stn.ID)\" has the following observations:\n",
+		"    Station ID                 (ID) : ", stn.ID,                  '\n',
+		"    Station Name             (name) : ", stn.name,                '\n',
+		"    Station Coordinates (lon,lat,z) : ", [stn.lon,stn.lat,stn.z], '\n',
+        "    Number of Observations          : ", length(stn.line),        '\n',
+        "    Start Date/Time                 : ", minimum(stn.dates),      '\n',
+        "    End Date/Time                   : ", maximum(stn.dates)
+	)
+end

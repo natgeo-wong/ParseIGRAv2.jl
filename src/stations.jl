@@ -63,7 +63,7 @@ function show(io::IO, stn::IGRAv2Station)
 		"    Station ID                 (ID) : ", stn.ID,                  '\n',
 		"    Station Name             (name) : ", stn.name,                '\n',
 		"    Station Coordinates (lon,lat,z) : ", [stn.lon,stn.lat,stn.z], '\n',
-        "    Valid Dates        (start,stop) : ", [stn.start,stn.stop],    '\n',
+        "    Valid Years        (start,stop) : ", [stn.start,stn.stop],    '\n',
 		"    HTTPS Link              (https) : ", stn.https,               '\n',
 		"    Raw File Name             (raw) : ", stn.raw,                 '\n',
 		"    Derived File Name     (derived) : ", stn.derived
