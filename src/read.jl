@@ -29,6 +29,8 @@ function extract(
     zIO = zip.files[1]
     txt = read(zIO,String)
 
+    @info "$(modulelog()) - Extracting radiosonde data for $(station.ID) from $zID to $fID ..."
+
     fIO = open(fID,"w")
     write(fIO,txt)
     close(fIO)
@@ -61,6 +63,8 @@ function read(
         station.ID, station.name, station.lon, station.lat, station.z,
         zeros(Int,nobs), zeros(DateTime,nobs), zeros(Int,nobs), zeros(Int,nobs)
     )
+
+    @info "$(modulelog()) - Loading radiosonde data information for $(station.ID) ..."
 
     fio = open(fID)
     ii = 0
