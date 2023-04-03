@@ -1,6 +1,6 @@
-using AnalyzeIGRAv2
+using ParseIGRAv2
 using Test
 
-@testset "AnalyzeIGRAv2.jl" begin
+@testset "ParseIGRAv2.jl" begin
     # Write your tests here.
 end
