@@ -26,7 +26,26 @@ export
 
         download, extract, read, show,
 
-        IGRAv2Station, IGRAv2Data
+        IGRAv2Raw, IGRAv2Derived, IGRAv2Data
+
+
+## Abstract SuperTypes
+"""
+    IGRAv2Station
+
+Abstract supertype that contains information on IGRAv2 Stations
+
+All `IGRAv2Station` Types contain the following fields:
+- `ID`    : The IGRAv2 Station identifier, 11 characters long
+- `name`  : Name of the station location
+- `lon`   : Longitude of the station
+- `lat`   : Latitude of the station
+- `z`     : Altitude of the station
+- `start` : Year data start
+- `stop`  : Year data stops
+- `https` : Remote https link to access/download data
+"""
+abstract type IGRAv2Station end
 
 ## TmPi.jl logging preface
 
