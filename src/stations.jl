@@ -43,11 +43,11 @@ stationinfotable(derived :: Bool) = pretty_table(
     tf = tf_compact
 )
 
-stationlist(derived :: Bool) = stationinfodata(0,derived)[:,1]
+stationlist(;derived :: Bool) = stationinfodata(0,derived)[:,1]
 
 function isIGRAv2station(stn :: AbstractString, derived :: Bool)
 
-    if !iszero(sum(stationlist(derived) .== stn))
+    if !iszero(sum(stationlist(derived=derived) .== stn))
           return true
     else; return false
     end
@@ -56,7 +56,7 @@ end
 
 function station(ID :: AbstractString, FT = Float64, ST = String; derived :: Bool = false)
     if isIGRAv2station(ID,derived)
-        data = stationinfodata(findfirst(stationlist(derived).==ID),derived)
+        data = stationinfodata(findfirst(stationlist(derived=derived).==ID),derived)
         if derived
             return IGRAv2Derived{ST,FT}(
                 data[1], data[2], data[4], data[3], data[5], data[6], data[7],

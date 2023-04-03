@@ -1,7 +1,6 @@
 function download(
     station :: IGRAv2Station;
-    path    :: AbstractString = homedir(),
-    derived :: Bool = false
+    path    :: AbstractString = homedir()
 )
 
     fzip = zippath(station,path); mkpath(dirname(fzip))
