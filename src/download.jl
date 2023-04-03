@@ -4,11 +4,6 @@ function download(
     derived :: Bool = false
 )
 
-    if derived
-        mkpath(joinpath(path,"IGRAv2","derived"))
-    else
-        mkpath(joinpath(path,"IGRAv2","raw"))
-    end
     fzip = zippath(station,path); mkpath(dirname(fzip))
     download(station.https,fzip)
 

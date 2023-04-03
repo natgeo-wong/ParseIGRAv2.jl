@@ -8,7 +8,6 @@ using Printf
 using Statistics
 
 ## Modules Used
-using NCDatasets
 using ZipFile
 
 ## Reexporting exported functions within these modules
