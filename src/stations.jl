@@ -24,21 +24,22 @@ end
 function stationinfodata(ii :: Int, derived :: Bool)
 
     if derived
-        fid = joinpath(@__DIR__,"..","files","igra2station-derived-list.txt")
+        fid = joinpath(@__DIR__,"..","files","igra2station-derived-list.csv")
     else
-        fid = joinpath(@__DIR__,"..","files","igra2station-raw-list.txt")
+        fid = joinpath(@__DIR__,"..","files","igra2station-raw-list.csv")
     end
 
     if iszero(ii)
-        return readdlm(fid,'|')[:,[1,5,2,3,4,6,7]]
+        return readdlm(fid,',')[:,[1,5,2,3,4,6,7]]
     else
-        return readdlm(fid,'|')[ii,[1,5,2,3,4,6,7]]
+        return readdlm(fid,',')[ii,[1,5,2,3,4,6,7]]
     end
 
 end
 
-stationinfotable(derived :: Bool) = pretty_table(
-    stationinfodata(0,derived),header=head,
+stationinfotable(;derived :: Bool=false) = pretty_table(
+    stationinfodata(0,derived),
+    header=["ID","Name","Latitude","Longitude","Altitude","Year Start","Year End"],
     alignment=[:c,:l,:c,:c,:c,:c,:c],
     tf = tf_compact
 )
