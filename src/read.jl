@@ -1,8 +1,7 @@
 struct IGRAv2Data{ST<:AbstractString,FT<:Real}
          ID :: ST
        name :: ST
-       path :: ST
-    derived :: Bool
+       file :: ST
         lon :: FT
         lat :: FT
           z :: FT
@@ -16,16 +15,10 @@ end
 function extract(
     station :: IGRAv2Station;
     path    :: AbstractString = homedir(),
-    derived :: Bool = false
 )
 
-    if derived
-        zID = joinpath(path,"IGRAv2","derived","$(station.ID).txt.zip")
-        fID = joinpath(path,"IGRAv2","derived","$(station.ID).txt")
-    else
-        zID = joinpath(path,"IGRAv2","raw","$(station.ID).txt.zip")
-        fID = joinpath(path,"IGRAv2","raw","$(station.ID).txt")
-    end
+    zID = zippath(station,path)
+    fID = txtpath(station,path)
 
     zip = ZipFile.Reader(zID)
     zIO = zip.files[1]
@@ -43,16 +36,10 @@ end
 function read(
     station :: IGRAv2Station;
     path    :: AbstractString = homedir(),
-    derived :: Bool = false,
     FT = Float64, ST = String
 )
 
-    if derived
-        fID = joinpath(path,"IGRAv2","derived","$(station.ID).txt")
-    else
-        fID = joinpath(path,"IGRAv2","raw","$(station.ID).txt")
-    end
-
+    fID = txtpath(station,path)
     fio = open(fID)
     nobs = 0
     for line in eachline(fio)
@@ -63,7 +50,7 @@ function read(
     close(fio)
 
     igra = IGRAv2Data{ST,FT}(
-        station.ID, station.name, path, derived,
+        station.ID, station.name, fID,
         station.lon, station.lat, station.z,
         zeros(Int,nobs), zeros(DateTime,nobs), zeros(Int,nobs), zeros(Int,nobs)
     )
