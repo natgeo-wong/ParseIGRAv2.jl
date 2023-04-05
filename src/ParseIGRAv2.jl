@@ -51,6 +51,7 @@ abstract type IGRAv2Station end
 modulelog() = "$(now()) - ParseIGRAv2.jl"
 
 include("stations.jl")
+include("filesystem.jl")
 include("download.jl")
 include("read.jl")
 include("profiles.jl")

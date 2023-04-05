@@ -21,7 +21,7 @@ struct IGRAv2Derived{ST<:AbstractString,FT<:Real} <: IGRAv2Station
 end
 
 
-function stationinfodata(ii :: Int, derived :: Bool)
+function stationinfodata(;ii :: Int = 0, derived :: Bool)
 
     if derived
         fid = joinpath(@__DIR__,"..","files","igra2station-derived-list.csv")
@@ -38,13 +38,13 @@ function stationinfodata(ii :: Int, derived :: Bool)
 end
 
 stationinfotable(;derived :: Bool=false) = pretty_table(
-    stationinfodata(0,derived),
+    stationinfodata(derived=derived),
     header=["ID","Name","Latitude","Longitude","Altitude","Year Start","Year End"],
     alignment=[:c,:l,:c,:c,:c,:c,:c],
     tf = tf_compact
 )
 
-stationlist(;derived :: Bool) = stationinfodata(0,derived)[:,1]
+stationlist(;derived :: Bool = false) = stationinfodata(derived=derived)[:,1]
 
 function isIGRAv2station(stn :: AbstractString, derived :: Bool)
 
@@ -57,7 +57,7 @@ end
 
 function station(ID :: AbstractString, FT = Float64, ST = String; derived :: Bool = false)
     if isIGRAv2station(ID,derived)
-        data = stationinfodata(findfirst(stationlist(derived=derived).==ID),derived)
+        data = stationinfodata(ii=findfirst(stationlist(derived=derived).==ID),derived=derived)
         if derived
             return IGRAv2Derived{ST,FT}(
                 data[1], data[2], data[4], data[3], data[5], data[6], data[7],
