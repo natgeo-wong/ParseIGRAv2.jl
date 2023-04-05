@@ -1,4 +1,4 @@
-struct IGRAv2DataRaw{ST<:AbstractString,FT<:Real}
+struct IGRAv2DataRaw{ST<:AbstractString,FT<:Real} <: IGRAv2Data
          ID :: ST
        name :: ST
        file :: ST
@@ -10,7 +10,7 @@ struct IGRAv2DataRaw{ST<:AbstractString,FT<:Real}
     nlevels :: Vector{Int}
 end
 
-struct IGRAv2DataDerived{ST<:AbstractString,FT<:Real}
+struct IGRAv2DataDerived{ST<:AbstractString,FT<:Real} <: IGRAv2Data
          ID :: ST
        name :: ST
        file :: ST

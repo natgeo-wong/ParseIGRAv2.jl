@@ -30,7 +30,7 @@ export
 
 ## Abstract SuperTypes
 """
-    IGRAv2Station
+IGRAv2Station
 
 Abstract supertype that contains information on IGRAv2 Stations
 
@@ -45,6 +45,13 @@ All `IGRAv2Station` Types contain the following fields:
 - `https` : Remote https link to access/download data
 """
 abstract type IGRAv2Station end
+
+"""
+    IGRAv2Data
+
+Abstract supertype that contains information on IGRAv2 Data
+"""
+abstract type IGRAv2Data end
 
 ## TmPi.jl logging preface
 
