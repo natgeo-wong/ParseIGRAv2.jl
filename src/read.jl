@@ -1,4 +1,16 @@
-struct IGRAv2Data{ST<:AbstractString,FT<:Real}
+struct IGRAv2DataRaw{ST<:AbstractString,FT<:Real}
+         ID :: ST
+       name :: ST
+       file :: ST
+        lon :: FT
+        lat :: FT
+          z :: FT
+       line :: Vector{Int}
+      dates :: Vector{DateTime}
+    nlevels :: Vector{Int}
+end
+
+struct IGRAv2DataDerived{ST<:AbstractString,FT<:Real}
          ID :: ST
        name :: ST
        file :: ST
@@ -34,7 +46,7 @@ function extract(
 end
 
 function read(
-    station :: IGRAv2Station;
+    station :: IGRAv2StationDerived;
     path    :: AbstractString = homedir(),
     FT = Float64, ST = String
 )
@@ -49,7 +61,7 @@ function read(
     end
     close(fio)
 
-    igra = IGRAv2Data{ST,FT}(
+    igra = IGRAv2DataDerived{ST,FT}(
         station.ID, station.name, fID,
         station.lon, station.lat, station.z,
         zeros(Int,nobs), zeros(DateTime,nobs), zeros(Int,nobs), zeros(Int,nobs)
@@ -70,6 +82,51 @@ function read(
             )
             igra.nlevels[ii] = parse(Int,line[32:36])
             igra.pwv[ii] = parse(Int,line[38:43])
+            igra.line[ii] = iline
+        end
+    end
+    close(fio)
+
+    return igra
+
+end
+
+function read(
+    station :: IGRAv2StationRaw;
+    path    :: AbstractString = homedir(),
+    FT = Float64, ST = String
+)
+
+    fID = txtpath(station,path)
+    fio = open(fID)
+    nobs = 0
+    for line in eachline(fio)
+        if line[1] == '#'
+            nobs += 1
+        end
+    end
+    close(fio)
+
+    igra = IGRAv2DataRaw{ST,FT}(
+        station.ID, station.name, fID,
+        station.lon, station.lat, station.z,
+        zeros(Int,nobs), zeros(DateTime,nobs), zeros(Int,nobs),
+    )
+
+    @info "$(modulelog()) - Loading radiosonde data information for $(station.ID) ..."
+
+    fio = open(fID)
+    ii = 0
+    iline = 0
+    for line in eachline(fio)
+        iline += 1
+        if line[1] == '#'
+            ii += 1
+            igra.dates[ii] = DateTime(
+                parse(Int,line[14:17]), parse(Int,line[19:20]),
+                parse(Int,line[22:23]), parse(Int,line[25:26])
+            )
+            igra.nlevels[ii] = parse(Int,line[32:36])
             igra.line[ii] = iline
         end
     end

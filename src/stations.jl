@@ -1,4 +1,4 @@
-struct IGRAv2Raw{ST<:AbstractString,FT<:Real} <: IGRAv2Station
+struct IGRAv2StationRaw{ST<:AbstractString,FT<:Real} <: IGRAv2Station
        ID :: ST
      name :: ST
       lon :: FT
@@ -9,7 +9,7 @@ struct IGRAv2Raw{ST<:AbstractString,FT<:Real} <: IGRAv2Station
     https :: ST
 end
 
-struct IGRAv2Derived{ST<:AbstractString,FT<:Real} <: IGRAv2Station
+struct IGRAv2StationDerived{ST<:AbstractString,FT<:Real} <: IGRAv2Station
        ID :: ST
      name :: ST
       lon :: FT
@@ -59,14 +59,14 @@ function station(ID :: AbstractString, FT = Float64, ST = String; derived :: Boo
     if isIGRAv2station(ID,derived)
         data = stationinfodata(ii=findfirst(stationlist(derived=derived).==ID),derived=derived)
         if derived
-            return IGRAv2Derived{ST,FT}(
+            return IGRAv2StationDerived{ST,FT}(
                 data[1], data[2], data[4], data[3], data[5], data[6], data[7],
                 "https://www1.ncdc.noaa.gov/pub/data/igra/derived/derived-por/$(ID).txt.zip"
             )
         else
-            return IGRAv2Raw{ST,FT}(
+            return IGRAv2StationRaw{ST,FT}(
                 data[1], data[2], data[4], data[3], data[5], data[6], data[7],
-                "https://www1.ncdc.noaa.gov/pub/data/igra/data/data-por/$(ID).txt.zip"
+                "https://www1.ncdc.noaa.gov/pub/data/igra/data/data-por/$(ID)-data.txt.zip"
             )
         end
     else
