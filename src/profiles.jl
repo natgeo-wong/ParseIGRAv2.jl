@@ -13,7 +13,7 @@ function readprofile(station :: IGRAv2Data, icol1 :: Int, icol2 :: Int)
         idata = @view data[1:station.nlevels[itime],itime]
         for ilvl = 1 : station.nlevels[itime]
             idata[ilvl] = parse(Int,sounddata[ibeg+ilvl-1][icol1:icol2])
-            if idata[ilvl] == -99999
+            if !iszero(sum(idata[ilvl] .== [-99999,-9999,-8888]))
                 idata[ilvl] = NaN
             end
         end

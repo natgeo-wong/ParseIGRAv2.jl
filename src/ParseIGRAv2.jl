@@ -21,7 +21,11 @@ export
         station, stationlist, stationinfodata, stationinfotable,
         isIGRAv2station,
 
-        profile_pressure, profile_temperature, profile_vapourpressure,
+        profile_pressure,
+        profile_temperature,
+        profile_vapourpressure,
+        profile_relativehumidity,
+        profile_geopotential,
 
         download, extract, read, show,
 
