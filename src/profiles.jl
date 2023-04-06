@@ -24,6 +24,10 @@ function readprofile(station :: IGRAv2Data, icol1 :: Int, icol2 :: Int)
 
 end
 
-profile_temperature(station :: IGRAv2Data)    = readprofile(station,25,31) / 10
-profile_pressure(station :: IGRAv2Data)       = readprofile(station,1,7)
-profile_vapourpressure(station :: IGRAv2Data) = readprofile(station,73,79)
+profile_temperature(station :: IGRAv2DataDerived)    = readprofile(station,25,31) / 10
+profile_pressure(station :: IGRAv2DataDerived)       = readprofile(station,1,7)
+profile_vapourpressure(station :: IGRAv2DataDerived) = readprofile(station,73,79)
+
+profile_temperature(station :: IGRAv2DataRaw)      = readprofile(station,23,27) / 10
+profile_pressure(station :: IGRAv2DataRaw)         = readprofile(station,10,15)
+profile_relativehumidity(station :: IGRAv2DataRaw) = readprofile(station,29,33) / 10
