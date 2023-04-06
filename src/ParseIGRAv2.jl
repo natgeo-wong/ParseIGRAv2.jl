@@ -30,7 +30,8 @@ export
 
         download, extract, read, show,
 
-        IGRAv2Raw, IGRAv2Derived, IGRAv2Data
+        IGRAv2Station, IGRAv2StationRaw, IGRAv2StationDerived,
+        IGRAv2Data, IGRAv2DataRaw, IGRAv2DataDerived
 
 
 ## Abstract SuperTypes
