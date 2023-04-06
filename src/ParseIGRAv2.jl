@@ -26,6 +26,7 @@ export
         profile_vapourpressure,
         profile_relativehumidity,
         profile_geopotential,
+        profile_geopotentialestimate,
 
         download, extract, read, show,
 
