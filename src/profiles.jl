@@ -6,13 +6,13 @@ function readprofile(station :: IGRAv2Data, icol1 :: Int, icol2 :: Int)
     data = zeros(nlvls,ntime) * NaN
 
     fio = open(station.file)
-    data = readlines(fio)
+    sounddata = readlines(fio)
 
     for itime = 1 : ntime
         ibeg = station.line[itime] + 1
         idata = @view data[1:station.nlevels[itime],itime]
         for ilvl = 1 : station.nlevels[itime]
-            idata[ilvl] = parse(Int,data[ibeg+ilvl-1][icol1:icol2])
+            idata[ilvl] = parse(Int,sounddata[ibeg+ilvl-1][icol1:icol2])
             if idata[ilvl] == -99999
                 idata[ilvl] = NaN
             end
