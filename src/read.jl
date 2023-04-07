@@ -76,9 +76,19 @@ function read(
         iline += 1
         if line[1] == '#'
             ii += 1
+
+            hr = parse(Int,line[25:26])
+            mi = 0
+            if hr == 99
+                hr = parse(Int,line[28:29])
+                mi = parse(Int,line[30:31])
+            end
+            if mi == 99; mi = 0 end
+            if hr == 99; hr = 0 end
+
             igra.dates[ii] = DateTime(
                 parse(Int,line[14:17]), parse(Int,line[19:20]),
-                parse(Int,line[22:23]), parse(Int,line[25:26])
+                parse(Int,line[22:23]), hr, mi
             )
             igra.nlevels[ii] = parse(Int,line[32:36])
             igra.pwv[ii] = parse(Int,line[38:43])
